@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS NC2 Compendium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDEFE9;
+    --paper-2:#E4E7DE;
+    --ink:#16223A;
+    --blueprint:#2B4C7E;
+    --signal:#D9922E;
+    --copper:#A56A3E;
+    --grid:#C9CEC5;
+    --panel:#1B2A44;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',sans-serif;
+    overflow-x:hidden;
+  }
+  /* faint grid backdrop on content area */
+  .sheet{
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:32px 32px;
+    background-position:-1px -1px;
+  }
+
+  .layout{
+    display:flex;
+    min-height:100vh;
+  }
+
+  /* ---------- PATCH PANEL NAV ---------- */
+  .panel{
+    width:220px;
+    flex-shrink:0;
+    background:var(--panel);
+    color:var(--paper);
+    padding:28px 0 20px;
+    position:sticky;
+    top:0;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    z-index:10;
+  }
+  .panel-brand{
+    font-family:'Space Mono',monospace;
+    font-weight:700;
+    font-size:0.78rem;
+    letter-spacing:0.08em;
+    padding:0 22px 22px;
+    color:#8FA3C2;
+    border-bottom:1px solid rgba(255,255,255,0.12);
+    margin-bottom:6px;
+  }
+  .panel-brand span{display:block;color:var(--signal);font-size:0.68rem;margin-top:4px;}
+
+  .jack-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 22px;
+    cursor:pointer;
+    position:relative;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.82rem;
+    color:#B9C4D6;
+    transition:color .2s ease, background .2s ease;
+    border-left:3px solid transparent;
+  }
+  .jack-row:hover{color:#fff;background:rgba(255,255,255,0.04);}
+  .jack-row.active{
+    color:#fff;
+    background:rgba(217,146,46,0.08);
+    border-left:3px solid var(--signal);
+  }
+  .jack{
+    width:9px;height:9px;border-radius:50%;
+    background:#3A4C6B;
+    flex-shrink:0;
+    box-shadow: inset 0 0 0 2px rgba(0,0,0,0.2);
+    transition:background .2s ease, box-shadow .2s ease;
+  }
+  .jack-row.active .jack{
+    background:var(--signal);
+    box-shadow:0 0 8px 1px rgba(217,146,46,0.7);
+  }
+  .jack-id{color:#5D7196;font-size:0.68rem;margin-left:auto;}
+  .jack-row.active .jack-id{color:var(--signal);}
+
+  .panel-foot{
+    margin-top:auto;
+    padding:16px 22px 0;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.66rem;
+    color:#5D7196;
+    border-top:1px solid rgba(255,255,255,0.12);
+    line-height:1.6;
+  }
+
+  /* ---------- TRACE SVG OVERLAY ---------- */
+  #traceOverlay{
+    position:fixed;
+    top:0;left:0;width:100%;height:100%;
+    pointer-events:none;
+    z-index:50;
+  }
+  #traceOverlay path{
+    fill:none;
+    stroke:var(--signal);
+    stroke-width:2;
+    stroke-linecap:round;
+    filter:drop-shadow(0 0 3px rgba(217,146,46,0.8));
+  }
+
+  /* ---------- MAIN CONTENT ---------- */
+  main{
+    flex:1;
+    padding:64px 72px 100px;
+    max-width:900px;
+    position:relative;
+  }
+  .page{display:none;}
+  .page.active{display:block;animation:reveal .5s ease both;}
+  @keyframes reveal{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.75rem;
+    letter-spacing:0.12em;
+    color:var(--copper);
+    text-transform:uppercase;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:20px;height:1px;
+    background:var(--copper);
+  }
+  h1{
+    font-family:'Space Mono',monospace;
+    font-weight:700;
+    font-size:2.6rem;
+    line-height:1.1;
+    margin:0 0 20px;
+    color:var(--ink);
+    letter-spacing:-0.01em;
+  }
+  .lede{
+    font-size:1.08rem;
+    line-height:1.65;
+    color:#3A4A61;
+    max-width:60ch;
+    margin-bottom:36px;
+  }
+  .divider{
+    border:none;
+    border-top:1px solid var(--grid);
+    margin:36px 0;
+  }
+  .block-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.7rem;
+    letter-spacing:0.1em;
+    color:var(--blueprint);
+    text-transform:uppercase;
+    margin-bottom:10px;
+  }
+  p.body-text{
+    line-height:1.7;
+    color:#2B3A50;
+    max-width:64ch;
+    margin:0 0 24px;
+  }
+
+  /* COC grid cards on home */
+  .coc-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-top:8px;
+  }
+  .coc-card{
+    background:#fff;
+    border:1px solid var(--grid);
+    border-left:3px solid var(--blueprint);
+    padding:20px 22px;
+    cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .coc-card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 6px 18px rgba(22,34,58,0.08);
+  }
+  .coc-card .num{
+    font-family:'Space Mono',monospace;
+    font-weight:700;
+    color:var(--copper);
+    font-size:1.3rem;
+  }
+  .coc-card .title{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.85rem;
+    color:var(--ink);
+    margin-top:6px;
+  }
+
+  /* schematic decorative element */
+  .schematic{
+    margin:32px 0;
+    border:1px solid var(--grid);
+    background:#fff;
+    padding:20px;
+  }
+  .schematic svg{width:100%;height:auto;display:block;}
+
+  .status-row{
+    display:flex;
+    gap:24px;
+    margin-top:28px;
+    flex-wrap:wrap;
+  }
+  .status-chip{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.72rem;
+    color:var(--blueprint);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:6px 12px;
+    border:1px solid var(--grid);
+    background:#fff;
+  }
+  .status-chip .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--signal);
+  }
+
+  @media (max-width:760px){
+    .layout{flex-direction:column;}
+    .panel{
+      width:100%;height:auto;position:relative;
+      flex-direction:row;overflow-x:auto;padding:14px 0;
+    }
+    .panel-brand,.panel-foot{display:none;}
+    .jack-row{flex-shrink:0;border-left:none;border-bottom:3px solid transparent;}
+    .jack-row.active{border-left:none;border-bottom:3px solid var(--signal);}
+    main{padding:40px 24px 80px;}
+    h1{font-size:1.9rem;}
+    .coc-grid{grid-template-columns:1fr;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .page.active{animation:none;}
+    #traceOverlay path{display:none;}
+  }
+</style>
+</head>
+<body class="sheet">
+
+<svg id="traceOverlay"><path id="tracePath" d=""/></svg>
+
+<div class="layout">
+  <nav class="panel">
+    <div class="panel-brand">
+      CSS · NC2 COMPENDIUM
+      <span>REV. 2026.07 — DRAFT</span>
+    </div>
+
+    <div class="jack-row active" data-page="home" data-jack="0">
+      <span class="jack"></span> HOME <span class="jack-id">J0</span>
+    </div>
+    <div class="jack-row" data-page="coc1" data-jack="1">
+      <span class="jack"></span> COC 1 <span class="jack-id">J1</span>
+    </div>
+    <div class="jack-row" data-page="coc2" data-jack="2">
+      <span class="jack"></span> COC 2 <span class="jack-id">J2</span>
+    </div>
+    <div class="jack-row" data-page="coc3" data-jack="3">
+      <span class="jack"></span> COC 3 <span class="jack-id">J3</span>
+    </div>
+    <div class="jack-row" data-page="coc4" data-jack="4">
+      <span class="jack"></span> COC 4 <span class="jack-id">J4</span>
+    </div>
+    <div class="jack-row" data-page="about" data-jack="5">
+      <span class="jack"></span> ABOUT <span class="jack-id">J5</span>
+    </div>
+
+    <div class="panel-foot">
+      PATCH STATUS: 6/6 LINKED<br>
+      BUILD: MOCKUP — NOT FOR RELEASE
+    </div>
+  </nav>
+
+  <main>
+    <!-- HOME -->
+    <section class="page active" id="home">
+      <div class="eyebrow">TESDA · COMPUTER SYSTEMS SERVICING NC2</div>
+      <h1>CSS NC2<br>Compendium</h1>
+      <p class="lede">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. A single
+        reference for all four Certificates of Competency — built by
+        students, for students, so no one has to piece together a
+        reviewer from five different Facebook groups again.
+      </p>
+
+      <div class="block-label">Jump to a competency</div>
+      <div class="coc-grid">
+        <div class="coc-card" data-page="coc1">
+          <div class="num">01</div>
+          <div class="title">Install &amp; Configure Computer Systems</div>
+        </div>
+        <div class="coc-card" data-page="coc2">
+          <div class="num">02</div>
+          <div class="title">Set Up Computer Networks</div>
+        </div>
+        <div class="coc-card" data-page="coc3">
+          <div class="num">03</div>
+          <div class="title">Set Up Computer Servers</div>
+        </div>
+        <div class="coc-card" data-page="coc4">
+          <div class="num">04</div>
+          <div class="title">Maintain &amp; Repair Systems</div>
+        </div>
+      </div>
+
+      <div class="status-row">
+        <div class="status-chip"><span class="dot"></span> CONTENT: PLACEHOLDER</div>
+        <div class="status-chip"><span class="dot"></span> STRUCTURE: LIVE</div>
+        <div class="status-chip"><span class="dot"></span> HOST: GITHUB PAGES</div>
+      </div>
+    </section>
+
+    <!-- COC PAGES (template repeated) -->
+    <section class="page" id="coc1">
+      <div class="eyebrow">NC2 · COMPETENCY 01</div>
+      <h1>Install &amp; Configure<br>Computer Systems</h1>
+      <p class="lede">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+      <div class="schematic">
+        <svg viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="30" width="120" height="60" fill="none" stroke="#2B4C7E" stroke-width="1.5"/>
+          <text x="70" y="65" font-family="IBM Plex Mono" font-size="10" fill="#2B4C7E" text-anchor="middle">PSU</text>
+          <line x1="130" y1="60" x2="220" y2="60" stroke="#A56A3E" stroke-width="2"/>
+          <rect x="220" y="20" width="140" height="80" fill="none" stroke="#2B4C7E" stroke-width="1.5"/>
+          <text x="290" y="65" font-family="IBM Plex Mono" font-size="10" fill="#2B4C7E" text-anchor="middle">MOBO / CPU</text>
+          <line x1="360" y1="60" x2="450" y2="60" stroke="#A56A3E" stroke-width="2"/>
+          <rect x="450" y="30" width="120" height="60" fill="none" stroke="#2B4C7E" stroke-width="1.5"/>
+          <text x="510" y="65" font-family="IBM Plex Mono" font-size="10" fill="#2B4C7E" text-anchor="middle">STORAGE</text>
+        </svg>
+      </div>
+
+      <hr class="divider">
+      <div class="block-label">Elements covered</div>
+      <p class="body-text">Placeholder — hardware assembly, BIOS/UEFI config,
+      OS installation, driver setup. Lorem ipsum content goes here once
+      full copy is drafted.</p>
+    </section>
+
+    <section class="page" id="coc2">
+      <div class="eyebrow">NC2 · COMPETENCY 02</div>
+      <h1>Set Up Computer<br>Networks</h1>
+      <p class="lede">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+
+      <div class="schematic">
+        <svg viewBox="0 0 600 140" xmlns="http://www.w3.org/2000/svg">
+          <rect x="270" y="10" width="60" height="30" fill="none" stroke="#2B4C7E" stroke-width="1.5"/>
+          <text x="300" y="30" font-family="IBM Plex Mono" font-size="9" fill="#2B4C7E" text-anchor="middle">SWITCH</text>
+          <line x1="300" y1="40" x2="80" y2="100" stroke="#A56A3E" stroke-width="1.5"/>
+          <line x1="300" y1="40" x2="300" y2="100" stroke="#A56A3E" stroke-width="1.5"/>
+          <line x1="300" y1="40" x2="520" y2="100" stroke="#A56A3E" stroke-width="1.5"/>
+          <circle cx="80" cy="110" r="14" fill="none" stroke="#2B4C7E" stroke-width="1.5"/>
+          <circle cx="300" cy="110" r="14" fill="none" stroke="#2B4C7E" stroke-width="1.5"/>
+          <circle cx="520" cy="110" r="14" fill="none" stroke="#2B4C7E" stroke-width="1.5"/>
+          <text x="80" y="135" font-family="IBM Plex Mono" font-size="8" fill="#2B4C7E" text-anchor="middle">PC-1</text>
+          <text x="300" y="135" font-family="IBM Plex Mono" font-size="8" fill="#2B4C7E" text-anchor="middle">PC-2</text>
+          <text x="520" y="135" font-family="IBM Plex Mono" font-size="8" fill="#2B4C7E" text-anchor="middle">PC-3</text>
+        </svg>
+      </div>
+
+      <hr class="divider">
+      <div class="block-label">Elements covered</div>
+      <p class="body-text">Placeholder — UTP crimping, network topology,
+      IP addressing, switch/router configuration. Full copy pending.</p>
+    </section>
+
+    <section class="page" id="coc3">
+      <div class="eyebrow">NC2 · COMPETENCY 03</div>
+      <h1>Set Up Computer<br>Servers</h1>
+      <p class="lede">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+      sed do eiusmod tempor incididunt ut labore.</p>
+
+      <div class="schematic">
+        <svg viewBox="0 0 600 140" xmlns="http://www.w3.org/2000/svg">
+          <rect x="230" y="10" width="140" height="120" fill="none" stroke="#2B4C7E" stroke-width="1.5"/>
+          <line x1="230" y1="40" x2="370" y2="40" stroke="#C9CEC5" stroke-width="1"/>
+          <line x1="230" y1="70" x2="370" y2="70" stroke="#C9CEC5" stroke-width="1"/>
+          <line x1="230" y1="100" x2="370" y2="100" stroke="#C9CEC5" stroke-width="1"/>
+          <circle cx="350" cy="25" r="3" fill="#D9922E"/>
+          <circle cx="350" cy="55" r="3" fill="#D9922E"/>
+          <circle cx="350" cy="85" r="3" fill="#D9922E"/>
+          <text x="300" y="145" font-family="IBM Plex Mono" font-size="9" fill="#2B4C7E" text-anchor="middle">RACK UNIT</text>
+        </svg>
+      </div>
+
+      <hr class="divider">
+      <div class="block-label">Elements covered</div>
+      <p class="body-text">Placeholder — AD DS, DNS, DHCP, file/print
+      server setup, domain join. Full copy pending.</p>
+    </section>
+
+    <section class="page" id="coc4">
+      <div class="eyebrow">NC2 · COMPETENCY 04</div>
+      <h1>Maintain &amp; Repair<br>Computer Systems</h1>
+      <p class="lede">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Duis aute irure dolor in reprehenderit in voluptate velit.</p>
+
+      <div class="schematic">
+        <svg viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg">
+          <path d="M40,60 L200,60 L220,30 L240,90 L260,30 L280,90 L300,60 L560,60"
+                fill="none" stroke="#A56A3E" stroke-width="2"/>
+          <text x="300" y="105" font-family="IBM Plex Mono" font-size="9" fill="#2B4C7E" text-anchor="middle">DIAGNOSTIC TRACE</text>
+        </svg>
+      </div>
+
+      <hr class="divider">
+      <div class="block-label">Elements covered</div>
+      <p class="body-text">Placeholder — preventive maintenance,
+      troubleshooting methodology, component-level repair. Full copy
+      pending.</p>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="page" id="about">
+      <div class="eyebrow">PROJECT INFO</div>
+      <h1>About this<br>project</h1>
+      <p class="lede">
+        Lorem ipsum dolor sit amet — a short note on why this exists,
+        who built it, and what it's meant to replace. Built by Grade 12
+        TVL-ICT students holding active NC2 certification.
+      </p>
+      <hr class="divider">
+      <div class="block-label">Status</div>
+      <p class="body-text">This is a working mockup demonstrating site
+      structure and navigation. Full content per COC is in development.</p>
+    </section>
+  </main>
+</div>
+
+<script>
+(function(){
+  const jacks = document.querySelectorAll('.jack-row');
+  const cards = document.querySelectorAll('.coc-card');
+  const pages = document.querySelectorAll('.page');
+  const svgOverlay = document.getElementById('traceOverlay');
+  const tracePath = document.getElementById('tracePath');
+
+  function setActive(pageId){
+    jacks.forEach(j => j.classList.toggle('active', j.dataset.page === pageId));
+    pages.forEach(p => p.classList.toggle('active', p.id === pageId));
+  }
+
+  function drawTrace(fromEl){
+    const rect = fromEl.getBoundingClientRect();
+    const startX = rect.right - 8;
+    const startY = rect.top + rect.height/2;
+    const endX = Math.min(window.innerWidth - 80, startX + 260);
+    const endY = startY;
+    const midX = startX + 90;
+
+    const d = `M${startX},${startY} C${midX},${startY} ${midX},${endY} ${endX},${endY}`;
+    tracePath.setAttribute('d', d);
+
+    const length = tracePath.getTotalLength();
+    tracePath.style.strokeDasharray = length;
+    tracePath.style.strokeDashoffset = length;
+    tracePath.getBoundingClientRect(); // force reflow
+    tracePath.style.transition = 'stroke-dashoffset 0.45s ease';
+    tracePath.style.strokeDashoffset = 0;
+
+    setTimeout(() => {
+      tracePath.style.transition = 'none';
+      tracePath.style.strokeDashoffset = length;
+    }, 550);
+  }
+
+  jacks.forEach(jack => {
+    jack.addEventListener('click', () => {
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(!reduced) drawTrace(jack);
+      setActive(jack.dataset.page);
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      setActive(card.dataset.page);
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
