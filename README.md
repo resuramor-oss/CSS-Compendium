@@ -28,12 +28,12 @@ Open <http://localhost:3000>. Without Supabase variables the site runs in **publ
 
 1. Create a project at <https://supabase.com> (Singapore region is closest to the Philippines).
 2. Open the SQL editor and run `supabase/migrations/20261030000000_init.sql`.
-3. Copy **Project URL** and **anon public key** from Project Settings → API into `.env.local`:
+3. Copy **Project URL** and the **publishable key** (`sb_publishable_...`) from Project Settings → API into `.env.local`. A legacy anon key also works via `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
 
 ```bash
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_your-key
 ```
 
 4. Authentication → Providers:
