@@ -2,6 +2,9 @@
 
 A free, source-based reviewer for **TESDA Computer Systems Servicing NC II** (CSS NC II). Public reading and quick quizzes work without an account; signing in adds progress tracking, saved quiz attempts, and a dashboard.
 
+- **New app:** <https://css-compendium.vercel.app>
+- **Legacy static site:** <https://resuramor-oss.github.io/CSS-Compendium/>
+
 The original static site is preserved under [`legacy/`](./legacy) and in the `v1-static` Git tag.
 
 ## Stack
