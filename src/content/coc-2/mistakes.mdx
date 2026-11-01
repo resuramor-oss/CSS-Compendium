@@ -1,0 +1,37 @@
+---
+title: Common Mistakes & Tips
+summary: Cabling and configuration errors that commonly cause failed connectivity.
+lastReviewed: "2026-10-30"
+sources:
+  - label: TESDA Training Regulations — Computer Systems Servicing NC II (Amended December 2013), pp. 42–45
+    url: https://www.tesda.gov.ph/Downloadables/TR%20Computer%20Systems%20Servicing%20NC%20II%20.pdf
+---
+
+### Cabling mistakes
+
+- **Using the wrong pin-out.** T568A and T568B are both valid, but both ends of a straight-through cable must match.
+- **Untwisting too much wire.** Keep the twists as close to the connector as possible to reduce crosstalk.
+- **Not inserting wires fully.** The copper should reach the end of the RJ45 connector before crimping.
+- **Damaging the conductors while stripping.** Nicked copper weakens the cable and can cause intermittent faults.
+- **Skipping the cable test.** Always test both ends and record the result.
+- **Running data cable next to mains power.** Interference and safety hazards result; use separation and proper raceway.
+- **Exceeding 100 meters.** Copper Ethernet runs beyond the limit may link at reduced speed or fail.
+
+### Addressing and configuration mistakes
+
+- **Duplicate IP addresses.** Check the DHCP scope and static assignments.
+- **Wrong subnet mask or gateway.** The client may reach local devices but not other networks.
+- **Wrong DNS server.** The client can ping an IP but cannot resolve names.
+- **DHCP pool exhaustion or overlap.** Confirm the pool size and that it does not overlap static addresses.
+- **Leaving default router credentials.** Change the administrator password before deployment.
+- **Using WEP or an open network.** Use WPA2/WPA3 with a strong passphrase.
+- **Disabling the firewall unnecessarily.** Open only the ports that are required.
+- **Forgetting to save the router configuration.** Reboot the device and verify that settings persist.
+
+### Testing and documentation mistakes
+
+- **Testing only one client.** Check wired and wireless clients, local resources, and internet access.
+- **Ignoring intermittent faults.** Re-test after moving cables and devices; a link light is not proof of a good cable.
+- **No labels.** Unlabelled cables make maintenance difficult and cost marks.
+- **No network diagram or IP sheet.** Document the topology, addresses, and device settings.
+- **Leaving waste behind.** Follow 5S and WEEE disposal requirements.

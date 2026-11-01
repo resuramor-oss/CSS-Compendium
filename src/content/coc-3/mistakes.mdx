@@ -1,0 +1,43 @@
+---
+title: Common Mistakes & Tips
+summary: Access-control and service-configuration errors to avoid.
+lastReviewed: "2026-10-30"
+sources:
+  - label: TESDA Training Regulations — Computer Systems Servicing NC II (Amended December 2013), pp. 46–48
+    url: https://www.tesda.gov.ph/Downloadables/TR%20Computer%20Systems%20Servicing%20NC%20II%20.pdf
+---
+
+### User access mistakes
+
+- **Giving everyone administrator rights.** Apply least privilege; use groups instead of individual permissions.
+- **Confusing share and NTFS permissions.** The most restrictive effective permission applies.
+- **Creating accounts without an owner or purpose.** Document them and disable stale accounts.
+- **Weak or shared passwords.** Enforce a password policy and never share administrator credentials.
+- **Forgetting to test denial.** Confirm that unauthorized users are actually blocked, not just that authorized users can log in.
+- **Leaving default accounts enabled.** Rename or disable unnecessary default accounts.
+
+### Service configuration mistakes
+
+- **Assuming a service works because it starts.** Test it from a client.
+- **Forgetting to set services to start automatically.** A reboot may leave the server without the required role.
+- **Wrong DNS or DHCP scope.** Clients may get addresses but fail name resolution or route incorrectly.
+- **Opening all firewall ports.** Expose only what is required.
+- **Skipping updates.** Install required modules, add-ons, and security updates.
+- **No time synchronization.** Authentication and logs can behave unexpectedly.
+- **No backup or rollback plan.** Take a snapshot or backup before major changes.
+
+### Testing and documentation mistakes
+
+- **Testing only on the server.** Verify from a client.
+- **No security check.** Review accounts, permissions, firewall, and remote access.
+- **No pre-deployment checklist.** Missing a step can cause a failed deployment.
+- **No records.** Document the build, configuration, accounts, and test results.
+- **Ignoring warnings in logs.** Investigate before they become outages.
+
+### Practical tips
+
+- Use a build checklist and tick each item off.
+- Reboot after configuration and retest; persistence matters.
+- Record the exact service names, ports, and dependencies.
+- Test with a standard user account, not only an administrator.
+- Ask for sign-off before the server is considered deployed.

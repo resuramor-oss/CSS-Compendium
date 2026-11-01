@@ -1,0 +1,82 @@
+---
+title: Quick-Recall Notes
+summary: Cabling, addressing, wireless, and testing concepts for COC 2.
+lastReviewed: "2026-10-30"
+sources:
+  - label: TESDA Training Regulations — Computer Systems Servicing NC II (Amended December 2013), pp. 42–45
+    url: https://www.tesda.gov.ph/Downloadables/TR%20Computer%20Systems%20Servicing%20NC%20II%20.pdf
+  - label: TESDA COC 2 Self-Assessment Guide
+    url: https://www.tesda.gov.ph/Downloadables/SAGs/COC2.SELF%20ASSESSMENT%20GUIDE%20(SAG).pdf
+---
+
+### Network types and topologies
+
+- **LAN** — a network within a limited area such as a room, building, or campus.
+- **WAN** — a network that spans a larger area, often connecting sites through an ISP.
+- **SOHO** — small office/home office network, usually one router with LAN ports and Wi-Fi.
+- **Star topology** — each device connects to a central switch or access point; the most common LAN topology.
+- **Mesh** — multiple paths between nodes; used in wireless mesh systems for coverage.
+
+### Copper cabling
+
+- UTP categories: Cat5e supports 1 Gbps up to 100 m; Cat6/Cat6a support higher speeds over shorter or equal runs.
+- Maximum nominal copper run: **100 meters** from switch to device, including patch cords.
+- Avoid running data cable parallel to mains power; cross at right angles and keep distance from interference sources.
+- Do not exceed the cable's bend radius; do not staple through the cable.
+- Use cable raceway or conduit where required and leave a service loop.
+
+### T568A and T568B
+
+| Pin | T568A | T568B |
+| --- | --- | --- |
+| 1 | White-green | White-orange |
+| 2 | Green | Orange |
+| 3 | White-orange | White-green |
+| 4 | Blue | Blue |
+| 5 | White-blue | White-blue |
+| 6 | Orange | Green |
+| 7 | White-brown | White-brown |
+| 8 | Brown | Brown |
+
+- **Straight-through:** both ends use the same standard (A-A or B-B). Connects unlike devices: PC–switch, switch–router.
+- **Crossover:** one end A, the other B. Connects similar devices: switch–switch, PC–PC. Modern Auto-MDIX ports often adapt automatically, but know the standard.
+
+### Crimping and testing sequence
+
+1. Strip the jacket without nicking the conductors.
+2. Untwist only as much as needed and arrange the wires in the correct order.
+3. Trim the wires evenly and insert them fully into the RJ45 connector.
+4. Crimp firmly with the correct tool.
+5. Inspect the connector and test both ends with a LAN tester.
+6. Label both ends of the cable.
+
+### IPv4 addressing
+
+- An IPv4 address has 32 bits, written as four octets (for example, 192.168.1.10).
+- **Private ranges:** 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16.
+- **Subnet mask** separates network and host bits. A /24 mask is 255.255.255.0.
+- **Default gateway** is the router interface on the local subnet.
+- **DHCP** leases addresses automatically; a **static** address is configured manually.
+- **APIPA** (169.254.x.x) usually means the client could not reach a DHCP server.
+- Use `ipconfig` / `ip addr` to view addressing, and `ping` to test reachability.
+
+### Router, access point, and wireless settings
+
+- **WAN port** connects to the ISP or upstream network; **LAN ports** connect local devices.
+- Configure the WAN type required by the ISP (DHCP, static, or PPPoE).
+- Set the LAN IP address and DHCP pool; avoid overlapping with other subnets.
+- Configure the wireless SSID, channel, band, and security.
+- Prefer **WPA2/WPA3**; avoid WEP and open networks.
+- Change default administrator credentials and disable remote administration unless required.
+- Configure the firewall and port forwarding only when necessary.
+- For an access point/repeater, follow the manufacturer's mode and placement guidance.
+
+### Testing and documentation
+
+- Verify link lights and cable tester results.
+- Confirm the client receives an address and can ping the gateway.
+- Test name resolution with `nslookup` or by browsing to a known host.
+- Test communication between terminals (file share, printer, ping).
+- Test wireless coverage and roaming where applicable.
+- Record the topology, IP scheme, device settings, test results, and cable labels.
+- Follow 5S and dispose of waste according to WEEE and the 3Rs.

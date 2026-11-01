@@ -1,0 +1,75 @@
+---
+title: Quick-Recall Notes
+summary: Server roles, access control, network services, and pre-deployment checks.
+lastReviewed: "2026-10-30"
+sources:
+  - label: TESDA Training Regulations — Computer Systems Servicing NC II (Amended December 2013), pp. 46–48
+    url: https://www.tesda.gov.ph/Downloadables/TR%20Computer%20Systems%20Servicing%20NC%20II%20.pdf
+  - label: TESDA COC 3 Self-Assessment Guide
+    url: https://www.tesda.gov.ph/Downloadables/SAGs/COC3.SELF%20ASSESSMENT%20GUIDE%20(SAG).pdf
+---
+
+### Server fundamentals
+
+- A server provides resources or services to clients over a network.
+- A **network operating system** manages users, groups, permissions, services, and shared resources.
+- Examples include Windows Server and Linux server distributions.
+- Servers should have a static IP address or a DHCP reservation.
+- Servers should be physically secure, updated, and monitored.
+
+### User access and security
+
+- Create a **user folder** for each user or department as required by the NOS and policy.
+- Assign access levels based on the user's role, not convenience.
+- Use **groups** to assign permissions consistently.
+- Apply **least privilege**: only the access needed for the job.
+- Disable or remove accounts that are no longer needed.
+- Use strong password policy and require password changes where appropriate.
+- Review share and NTFS permissions:
+  - **Share permissions** apply to network access.
+  - **NTFS permissions** apply locally and over the network.
+  - When both apply, the **most restrictive** effective permission wins.
+- Audit access and review security logs as required.
+- Restrict administrative access and remote management.
+
+### Server roles and services
+
+| Service | Purpose | Quick check |
+| --- | --- | --- |
+| DHCP | Assigns IP addresses and options to clients. | Client receives a valid lease; scope has free addresses. |
+| DNS | Resolves names to IP addresses. | `nslookup` returns the expected address. |
+| Domain controller / directory | Authenticates users and stores directory objects. | Users can log in; directory replication is healthy. |
+| File sharing | Provides shared folders and permissions. | Authorized users can access; others cannot. |
+| Print sharing | Publishes network printers. | Test print from a client. |
+| Web services (IIS) | Hosts websites and web applications. | Default page loads; required ports are open. |
+| Database services | Stores and serves application data. | Service starts; application connects. |
+| Remote access | Allows remote administration or access. | Restricted to authorized users; encrypted where possible. |
+| Proxy server | Mediates client web traffic. | Clients use the proxy; policy is enforced. |
+
+### Checking normal server functions
+
+- Boot the server and check for errors in the boot sequence.
+- Confirm that all required services start automatically.
+- Confirm network connectivity with `ping`, `ipconfig`/`ip addr`, and DNS queries.
+- Check event logs or system logs for warnings and errors.
+- Confirm time synchronization, disk space, and memory availability.
+- Verify that updates and required modules are installed.
+
+### Pre-deployment
+
+- Install required applications and updates.
+- Populate databases and verify connectivity from the application.
+- Create and test user accounts and permissions.
+- Configure services and confirm they start after a reboot.
+- Review firewall and security settings.
+- Confirm backups and recovery procedures.
+- Complete the deployment checklist and reports.
+- Obtain sign-off before releasing the server.
+
+### Testing and documentation
+
+- Test each service from a client, not only on the server.
+- Record the server name, IP address, OS version, roles, services, and test results.
+- Document accounts, groups, permissions, and any exceptions.
+- Record known issues and the actions taken.
+- Follow change management and enterprise policy.

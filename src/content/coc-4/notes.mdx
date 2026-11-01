@@ -1,0 +1,95 @@
+---
+title: Quick-Recall Notes
+summary: Preventive maintenance, diagnosis, repair, and inspection essentials.
+lastReviewed: "2026-10-30"
+sources:
+  - label: TESDA Training Regulations — Computer Systems Servicing NC II (Amended December 2013), pp. 49–52
+    url: https://www.tesda.gov.ph/Downloadables/TR%20Computer%20Systems%20Servicing%20NC%20II%20.pdf
+  - label: TESDA COC 4 Self-Assessment Guide
+    url: https://www.tesda.gov.ph/Downloadables/SAGs/COC4.SELF%20ASSESSMENT%20GUIDE%20(SAG).pdf
+---
+
+### Preventive maintenance
+
+- Clean dust from fans, heatsinks, filters, keyboards, and vents.
+- Check that fans spin freely and temperatures are normal.
+- Inspect cables and connectors for damage or loose seating.
+- Apply OS, driver, firmware, and application updates.
+- Update antivirus definitions and run scans.
+- Check disk health (SMART) and free space.
+- Verify backups and test restoration.
+- Create restore points before major changes.
+- Review event logs for recurring warnings.
+- Use a maintenance schedule and checklist.
+
+### Backups and recovery
+
+- **Backup:** a copy of data or a system that can be restored.
+- **Restore point:** a snapshot of system configuration used to roll back changes.
+- **3-2-1 rule:** at least three copies, on two different media, with one off-site.
+- Test restores; an untested backup is not a reliable backup.
+- Document the backup schedule, location, and retention.
+- Before a risky repair, back up the data and record the current configuration.
+
+### Systematic diagnosis
+
+1. Gather information: interview the user, read the job order, note symptoms.
+2. Reproduce the problem if safe to do so.
+3. Check the obvious: power, cables, connections, recent changes.
+4. Use diagnostic tools and logs.
+5. Isolate the fault by testing one variable at a time.
+6. Form a hypothesis and test it.
+7. Implement the fix with a rollback plan.
+8. Verify the fix and monitor for recurrence.
+9. Document the cause, action, and result.
+
+### Common hardware symptoms
+
+| Symptom | Possible causes |
+| --- | --- |
+| No power | PSU, power cable, outlet, front-panel switch, motherboard. |
+| No display | Monitor cable, GPU seating, RAM, POST failure, PSU. |
+| Beep codes | POST hardware error; check the motherboard manual. |
+| Random shutdowns | Overheating, failing PSU, unstable RAM, dust. |
+| Slow performance | Malware, full disk, failing HDD, insufficient RAM, overheating. |
+| Unrecognized device | Driver, cable, port, or device failure. |
+| Network loss | Cable, NIC, switch port, IP configuration, DNS, router. |
+
+### Common software symptoms
+
+- OS fails to boot after an update or driver change.
+- Applications crash or fail to start.
+- Malware or unwanted startup programs.
+- Corrupted user profile or system files.
+- Incorrect date/time or certificate errors.
+- IP conflicts or DNS failures.
+
+### Safety and ESD
+
+- Disconnect power before opening the case.
+- Never work inside a PSU; it stores dangerous charge even when unplugged.
+- Use an anti-static wrist strap or grounded touch point.
+- Hold boards by the edges and store them in anti-static bags.
+- Use PPE: goggles, mask, gloves, and anti-static wrist strap as required.
+- Keep the work area dry and free of clutter.
+- Report hazards and unplanned events immediately.
+
+### Repair and replacement
+
+- Confirm the replacement part is compatible.
+- Handle components carefully and avoid damage to nearby parts.
+- Do not force connectors or cards.
+- Apply thermal paste correctly when reseating a cooler.
+- Reconnect all cables and check routing.
+- Record serial numbers and parts replaced.
+- Keep removed parts for inspection or proper disposal.
+
+### Inspection, testing, and documentation
+
+- Confirm that the unit boots and POSTs without errors.
+- Test the specific function that was faulty.
+- Run general checks: ports, audio, network, storage, temperatures.
+- Run a stability or stress test where appropriate.
+- Check for safe operation and clean the work site.
+- Dispose of waste according to WEEE and the 3Rs.
+- Complete the service report: complaint, diagnosis, action, parts, tests, and recommendation.

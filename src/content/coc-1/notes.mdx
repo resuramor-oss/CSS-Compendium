@@ -1,0 +1,96 @@
+---
+title: Quick-Recall Notes
+summary: The concepts most likely to be probed during practical assessment.
+lastReviewed: "2026-10-30"
+sources:
+  - label: TESDA Training Regulations — Computer Systems Servicing NC II (Amended December 2013), pp. 38–41
+    url: https://www.tesda.gov.ph/Downloadables/TR%20Computer%20Systems%20Servicing%20NC%20II%20.pdf
+  - label: TESDA COC 1 Self-Assessment Guide
+    url: https://www.tesda.gov.ph/Downloadables/SAGs/COC1.SELF%20ASSESSMENT%20GUIDE(SAG).pdf
+---
+
+### Safety first
+
+- Work on a clean, well-lit, non-carpeted surface.
+- Wear an anti-static wrist strap connected to a grounded point, or touch a grounded metal chassis before handling components.
+- Hold boards and RAM by their edges; never touch gold contacts or pins.
+- Disconnect power before installing or removing internal components.
+- Use the correct tool for the fastener. Avoid over-tightening screws.
+- Keep liquids away from the work area and know where the fire extinguisher is.
+
+### Core components
+
+| Component | Function | Assessment reminder |
+| --- | --- | --- |
+| Motherboard | Connects and powers the CPU, RAM, storage, and expansion cards. | Match the CPU socket and RAM type. |
+| CPU | Executes instructions. | Align the notch/triangle; do not force the lever. |
+| RAM | Temporary working memory. | Match the notch and motherboard specification. |
+| Storage | Persistent data storage (HDD/SSD). | SATA or NVMe; check boot drive. |
+| PSU | Converts AC to the DC voltages the PC needs. | Check wattage and connectors. |
+| GPU | Renders display output. | Seat firmly; connect auxiliary power if required. |
+| Cooling | Keeps the CPU and case within safe temperatures. | Apply a thin, even layer of thermal paste. |
+
+### Assembly sequence
+
+1. Prepare the workspace and take an inventory of parts.
+2. Install the CPU, then the cooler, on the motherboard.
+3. Install RAM in the correct slots.
+4. Install the motherboard into the case using standoffs.
+5. Install the power supply and storage.
+6. Install the GPU and connect power cables.
+7. Connect front-panel headers, fans, and data cables.
+8. Recheck all connections, then power on and enter BIOS/UEFI.
+
+### BIOS/UEFI essentials
+
+- Confirm that the CPU, memory, and storage are detected.
+- Set the date and time.
+- Set the boot order to the installer device.
+- Enable or disable virtualization as required.
+- Save and exit before booting the installer.
+- After installation, return the boot order to the internal drive.
+
+### Bootable installer and OS installation
+
+- A bootable USB contains the installer and a bootloader; it is not simply a copied ISO file.
+- Choose the correct architecture (32-bit vs 64-bit) and edition.
+- Partition and format the target drive. **This erases existing data** — confirm the backup first.
+- Use automatic or custom installation depending on the requirement.
+- During first boot, complete regional, account, and network settings.
+- Install updates, then drivers, then applications.
+
+### Drivers and updates
+
+- Install the chipset, network, audio, and graphics drivers from the manufacturer's support page when possible.
+- Check Device Manager (Windows) or the equivalent for warning icons.
+- Install OS and driver updates, but avoid untested beta updates on a production unit.
+- Reboot when required and recheck device status.
+
+### Application software
+
+- Confirm the client's requirements and the licence before installing.
+- Use the vendor's installer and follow the installation guide.
+- Apply updates and verify that the application launches.
+- Remove unnecessary trialware or bundled software when the client does not want it.
+- Record what was installed and any licence keys or accounts in the documentation.
+
+### Testing and stress testing
+
+- Confirm that the unit powers on, POSTs, boots, and detects all devices.
+- Test USB ports, audio, network, display, and input devices.
+- Run a stress test on the CPU, GPU, memory, and disk to check stability and temperatures.
+- Watch for unexpected shutdowns, graphical artifacts, errors, or excessive heat.
+- Document the tests performed and their results.
+
+### 5S and 3Rs
+
+- **Seiri (Sort):** remove unnecessary items.
+- **Seiton (Set in order):** arrange tools and materials for efficient use.
+- **Seiso (Shine):** clean the workspace and equipment.
+- **Seiketsu (Standardize):** use consistent procedures and visual controls.
+- **Shitsuke (Sustain):** maintain the discipline.
+- **3Rs:** reduce, reuse, recycle/recover. Dispose of electronic waste responsibly.
+
+### Documentation
+
+A complete installation record normally includes the unit details, parts used, OS and software installed, drivers and versions, tests performed, results, issues found, and the technician's name and date. Forward it to the appropriate personnel as required by Element 5.4.
